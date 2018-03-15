@@ -21,14 +21,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
-
+import com.itgg.bos.domain.base.Area;
 import com.itgg.bos.domain.base.Standard;
 import com.itgg.bos.service.base.StandardService.StandardService;
+import com.itgg.bos.web.action.commonAction;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 /**  
  * ClassName:StandardAction <br/>  
@@ -39,30 +41,22 @@ import net.sf.json.JSONObject;
 @ParentPackage("struts-default")
 @Scope("prototype")
 @Controller
-public class StandardAction extends ActionSupport implements ModelDriven<Standard>{
+public class StandardAction extends commonAction<Standard>{
     
-    private Standard model=new Standard();
+    public StandardAction() {
+        
+        super(Standard.class);  
+        
+    }
+    
     @Autowired
     private StandardService standardService;
-    @Override
-    public Standard getModel() {
-          
-        return model;
-    }
     @Action(value="standardAction_save",results={@Result(name="success",location="/pages/base/standard.html",type="redirect")})
     public String save(){
         standardService.save(model);
         return SUCCESS;
     }
     
-    private int page;
-    private int rows;
-    public void setPage(int page) {
-        this.page = page;
-    }
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
     
     @Action("standard_findAll")
     public String findAll() throws IOException{
@@ -87,19 +81,7 @@ public class StandardAction extends ActionSupport implements ModelDriven<Standar
         
         Page<Standard> page=standardService.findAll(pageable);
         
-        long total = page.getTotalElements();
-        
-        List<Standard> list = page.getContent();
-        
-        Map<String, Object> map = new HashMap<>();
-        map.put("total", total);
-        map.put("rows", list);
-        
-        String json = JSONObject.fromObject(map).toString();
-        
-        HttpServletResponse response = ServletActionContext.getResponse();
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(json);
+        page2json(page, null);
         
         return NONE;
    /*  // EasyUI的页码是从1开始的

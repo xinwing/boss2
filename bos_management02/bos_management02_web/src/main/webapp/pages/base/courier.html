@@ -36,6 +36,33 @@
 				$("#searchWindow").window("open")
 			}
 			
+			// 自定义方法,将form表单中input节点的name和value拼装成json字符串
+			$.fn.serializeJson = function() {
+				var serializeObj = {};
+				var array = this.serializeArray();
+				var str = this.serialize();
+				$(array).each(function() {
+					if(serializeObj[this.name]) {
+						if($.isArray(serializeObj[this.name])) {
+							serializeObj[this.name].push(this.value);
+						} else {
+							serializeObj[this.name] = [serializeObj[this.name], this.value];
+						}
+					} else {
+						serializeObj[this.name] = this.value;
+					}
+				});
+				return serializeObj;
+			};
+			
+			
+			
+			function realSearch(){
+				var json=$("#searchForm").serializeJson();
+				$("#grid").datagrid("load",json)
+				$("#searchWindow").window("close")
+			}
+			
 			function doDelete(){
 				var result=$("#grid").datagrid("getSelections")
 				if(result.length==0){
@@ -306,7 +333,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2"><a id="searchBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> </td>
+							<td colspan="2"><a id="searchBtn" onclick="realSearch()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> </td>
 						</tr>
 					</table>
 				</form>

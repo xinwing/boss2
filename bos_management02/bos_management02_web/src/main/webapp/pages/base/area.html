@@ -5,6 +5,7 @@
 		<title>区域设置</title>
 		<!-- 导入jquery核心类库 -->
 		<script type="text/javascript" src="../../js/jquery-1.8.3.js"></script>
+		<script type="text/javascript" src="../../js/jquery.ocupload-1.1.2.js"></script>
 		<!-- 导入easyui类库 -->
 		<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css">
 		<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/icon.css">
@@ -25,6 +26,9 @@
 			
 			function doDelete(){
 				alert("删除...");
+			}
+			function upLoad(){
+				alert("上传...");
 			}
 			
 			//工具栏
@@ -47,6 +51,7 @@
 				id : 'button-import',
 				text : '导入',
 				iconCls : 'icon-redo'
+			
 			}];
 			// 定义列
 			var columns = [ [ {
@@ -98,11 +103,18 @@
 					pageList: [30,50,100],
 					pagination : true,
 					toolbar : toolbar,
-					url : "../../data/area.json",
+					url : "../../areaAction_pageQuery.action",
 					idField : 'id',
 					columns : columns,
 					onDblClickRow : doDblClickRow
 				});
+				
+				$("#button-import").upload({
+					// 请求参数	
+					name:"File",
+					// 请求地址
+					action:"../../areaAction_importXLS.action"
+				})
 				
 				// 添加、修改区域窗口
 				$('#addWindow').window({
@@ -120,13 +132,20 @@
 			function doDblClickRow(){
 				alert("双击表格数据...");
 			}
+			
+			
 		</script>
+		
 	</head>
 
 	<body class="easyui-layout" style="visibility:hidden;">
 		<div region="center" border="false">
 			<table id="grid"></table>
 		</div>
+		<!-- <div id="win" class="easyui-window" title="My Window" style="width:600px;height:400px"   
+        data-options="iconCls:'icon-save',modal:true">   
+    		<input class="easyui-filebox" style="width:300px">   
+		</div>   -->
 		<div class="easyui-window" title="区域添加修改" id="addWindow" collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
 			<div region="north" style="height:31px;overflow:hidden;" split="false" border="false">
 				<div class="datagrid-toolbar">
@@ -214,6 +233,7 @@
 				</form>
 			</div>
 		</div>
+		
 	</body>
 
 </html>

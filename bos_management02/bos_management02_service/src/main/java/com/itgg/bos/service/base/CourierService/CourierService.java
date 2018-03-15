@@ -2,6 +2,7 @@ package com.itgg.bos.service.base.CourierService;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import com.itgg.bos.domain.base.Courier;
 
@@ -14,9 +15,10 @@ public interface CourierService {
 
     void save(Courier courier);
 
-    Page<Courier> findAll(Pageable pageable);
 
     void batchDel(long id);
+
+    Page<Courier> findAll(Specification<Courier> specification, Pageable pageable);
     
 }
   
