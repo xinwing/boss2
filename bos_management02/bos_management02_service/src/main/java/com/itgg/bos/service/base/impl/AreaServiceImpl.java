@@ -36,6 +36,19 @@ public class AreaServiceImpl implements AreaService {
         
         return areaRepository.findAll(pageable);
     }
+    @Override
+    public List<Area> findAll() {
+          
+         
+        return areaRepository.findAll();
+    }
+    @Override
+    public List<Area> findQ(String q) {
+        
+        q="%"+q.toUpperCase()+"%";
+          
+        return areaRepository.findQ(q);
+    }
 
 }
   

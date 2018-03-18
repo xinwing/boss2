@@ -36,7 +36,12 @@ public class Area {
 
     @OneToMany(mappedBy = "area")
     private Set<SubArea> subareas = new HashSet<SubArea>();
-
+    
+    
+    public String getName() {
+        return province + city + district;
+    }
+    
     public Long getId() {
         return id;
     }

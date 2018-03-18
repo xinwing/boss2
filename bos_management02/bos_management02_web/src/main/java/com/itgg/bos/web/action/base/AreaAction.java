@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -129,6 +130,41 @@ public class AreaAction extends commonAction<Area>{
         page2json(page, jsonConfig);
         return NONE;
     }
+    
+    // 使用属性驱动获取用户输入的数据
+    private String q;
+    public void setQ(String q) {
+        this.q = q;
+    }
+    
+    // 添加删除分区弹出框中查询区域数据
+    @Action("areaAction_findAll")
+    public String findAll() throws IOException {
+        List<Area> list=null;
+        if(StringUtils.isNotEmpty(q)){
+             list = areaService.findQ(q);
+        }else{
+            list=areaService.findAll();
+        }
+        
+        JsonConfig jsonConfig = new JsonConfig();
+        jsonConfig.setExcludes(new String[]{"subareas"});
+        list2json(list, jsonConfig );
+        
+        return NONE;
+    }
+    
+    /*@Action("areaAction_findAll")
+    public String findAll() throws IOException{
+        
+        List<Area> list=new ArrayList<>();
+        list=areaService.findAll();
+        JsonConfig jsonConfig=new JsonConfig();
+        jsonConfig.setExcludes(new String[]{"subareas"});
+        list2json(list, jsonConfig);
+        
+        return NONE;
+    }*/
 
 }
   

@@ -15,6 +15,7 @@
 		<script type="text/javascript" src="../../js/easyui/ext/jquery.cookie.js"></script>
 		<script src="../../js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
 		<script type="text/javascript">
+			
 			function doAdd(){
 				$('#addWindow').window("open");
 			}
@@ -257,6 +258,13 @@
 				});
 				
 			}
+			
+			function save(){
+				if($("#fixedAreaForm").form("validate")){
+					$("#fixedAreaForm").submit()
+				}
+				
+			}
 		</script>
 	</head>
 
@@ -279,7 +287,7 @@
 		<div class="easyui-window" title="定区添加修改" id="addWindow" collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
 			<div style="height:31px;overflow:hidden;" split="false" border="false">
 				<div class="datagrid-toolbar">
-					<a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
+					<a id="save" onclick="save()" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
 					</script>
 				</div>
 			</div>
@@ -294,7 +302,7 @@
 							<td>定区编码</td>
 							<td><input type="text" name="id" class="easyui-validatebox"
 								required="true" /></td>
-						</tr>
+						</tr> 
 						<tr>
 							<td>定区名称</td>
 							<td><input type="text" name="fixedAreaName"
@@ -398,7 +406,8 @@
 							<td>
 								<!-- 存放定区编号 -->
 								<input type="hidden" name="id" id="courierFixedAreaId" />
-								<input data-options="ditable:false, url:'../../courierAction_listajax.action',valueField:'id',textField:'name'"
+								<!-- ../../courierAction_listajax.action -->
+								<input data-options="ditable:false, url:'',valueField:'id',textField:'name'"
 									 type="text" name="courierId" class="easyui-combobox" required="true" />
 							</td>
 						</tr>
