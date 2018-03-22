@@ -1,6 +1,10 @@
 package com.itgg.bos.service.base.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +33,25 @@ public class SubareaServiceImpl implements SubareaService{
           
         subareaRepository.save(model); 
         
+    }
+
+    @Override
+    public Page<SubArea> findAll(Pageable pageable) {
+          
+        return subareaRepository.findAll(pageable);  
+    }
+
+    @Override
+    public List<SubArea> findByFixedAreaIdIsNull() {
+          
+        return subareaRepository.findByFixedAreaIdIsNull();  
+    }
+
+    @Override
+    public List<SubArea> findByFixedAreaId(Long fixedAreaId) {
+          
+          
+        return subareaRepository.findByFixedAreaId(fixedAreaId);
     }
     
 }

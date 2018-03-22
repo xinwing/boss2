@@ -81,7 +81,7 @@ public class commonAction<T> extends ActionSupport implements ModelDriven<T> {
     }
     
     
-    public void list2json(List<T> list,JsonConfig jsonConfig){
+    public void list2json(List list,JsonConfig jsonConfig){
        
         String json;
         if(jsonConfig==null){
@@ -89,6 +89,7 @@ public class commonAction<T> extends ActionSupport implements ModelDriven<T> {
         }else{
             json = JSONArray.fromObject(list,jsonConfig).toString();
         }
+        //System.err.println(json);
         HttpServletResponse response = ServletActionContext.getResponse();
         
         response.setContentType("application/json;charset=utf-8");

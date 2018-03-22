@@ -16,5 +16,11 @@ public interface FixedAreaService {
 
     Page<FixedArea> findAll(Pageable pageable);
 
+    void associationCourierToFixedArea(Long id, Long takeTimeId, Long courierId);
+
+    void assignSubAreas2FixedArea(Long id, Long[] subAreaIds);
+
+    void unAssignSubAreas2FixedArea(Long id);
+
 }
   

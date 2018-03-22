@@ -160,6 +160,30 @@ public class CourierAction extends commonAction<Courier> {
         }
         return SUCCESS;
     }
+    @Action("courierAction_listajax")
+    public String listajax(){
+        
+        Specification<Courier> specification = new Specification<Courier>() {
+
+            @Override
+            public Predicate toPredicate(Root<Courier> root, CriteriaQuery<?> query,
+                    CriteriaBuilder cb) {
+                  
+                Predicate predicate = cb.isNull(root.get("deltag").as(Character.class));
+                
+                return predicate;
+            }};
+        Page<Courier> page2 = service.findAll(specification , null);
+        List<Courier> list = page2.getContent();
+        JsonConfig jsonConfig=new JsonConfig();
+        jsonConfig.setExcludes(new String[]{"fixedAreas","takeTime"});
+        
+        list2json(list, jsonConfig);
+        
+        return NONE;
+    }
+    
+    
     
 }
   
