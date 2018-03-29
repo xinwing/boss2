@@ -15,5 +15,7 @@ import com.itgg.bos.domain.base.Area;
 public interface AreaRepository extends JpaRepository<Area, Long> {
     @Query("from Area a where a.province like ?1 or a.city like ?1 or a.district like ?1 or postcode like ?1 or a.citycode like ?1 or a.shortcode like ?1")
     List<Area> findQ(String q);
+    
+    Area findByProvinceAndCityAndDistrict(String province,String city,String district);
 
 }

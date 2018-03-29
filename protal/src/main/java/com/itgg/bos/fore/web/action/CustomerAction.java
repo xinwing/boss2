@@ -2,13 +2,24 @@ package com.itgg.bos.fore.web.action;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.TimeUnit;
 
+import javax.jms.JMSException;
+import javax.jms.MapMessage;
+import javax.jms.Message;
+import javax.jms.Session;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -27,9 +38,16 @@ import com.opensymphony.xwork2.ModelDriven;
  * Function:  <br/>  
  * Date:     2018年3月19日 下午5:08:06 <br/>       
  */
+@Controller
+@Namespace("/")
+@ParentPackage("struts-default")
+@Scope("prototype")
 public class CustomerAction extends ActionSupport implements ModelDriven<Customer> {
     
     private Customer model=new Customer();
+    
+    @Autowired
+    private JmsTemplate jmsTemplate;
     
     @Override
     public Customer getModel() {
@@ -39,10 +57,11 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
     @Action("customerAction_sendSMS")
     public String sendSMS(){
         
-        String code = RandomStringUtils.randomNumeric(6);
-        System.out.println("邮箱验证码====="+code);
-        /*String code="我爱官梓鑫";*/
+        final String code = RandomStringUtils.randomNumeric(6);
+        System.out.println("短信验证码====="+code);
+        
         ServletActionContext.getRequest().getSession().setAttribute("code", code);
+        
        /* try {
             SmsUtils.sendSms(model.getTelephone(), code);
         } catch (ClientException e) {
@@ -50,6 +69,20 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
             e.printStackTrace();  
             
         }*/
+        
+        // 将原来发送短信的代码替换为以下代码
+        // 参数1:消息队列的名称
+        // 参数2:创建消息的对象
+        jmsTemplate.send("sms_message", new MessageCreator() {
+
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                MapMessage mapMessage = session.createMapMessage();
+                mapMessage.setString("tel", model.getTelephone());
+                mapMessage.setString("code", code);
+                return mapMessage;
+            }
+        });
         return NONE;
     }
     

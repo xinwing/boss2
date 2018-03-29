@@ -15,6 +15,7 @@
 		<script type="text/javascript" src="../../js/easyui/ext/jquery.cookie.js"></script>
 		<script src="../../js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
 		<script type="text/javascript" src="../../js/highcharts/highcharts.js"></script>
+		<script type="text/javascript" src="../../js/jquery.ocupload-1.1.2.js"></script>
 		<script type="text/javascript">
 			function doAdd(){
 				$('#addWindow').window("open");
@@ -164,6 +165,12 @@
 					columns : columns,
 					onDblClickRow : doDblClickRow
 				});
+				//绑定导入事件
+				$("#button-import").upload({
+					name:"subAreaFile",
+					action:"../../subAreaAction_importXLS.action"
+				})
+				
 				
 				// 添加、修改分区
 				$('#addWindow').window({

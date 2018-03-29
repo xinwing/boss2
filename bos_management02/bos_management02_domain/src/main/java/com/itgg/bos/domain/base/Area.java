@@ -38,6 +38,16 @@ public class Area {
     @OneToMany(mappedBy = "area",fetch = FetchType.EAGER)
     private Set<SubArea> subareas = new HashSet<SubArea>();
     
+    public Area(){
+        
+    }
+    
+    public Area(String province,String city,String district){
+        this.province=province;
+        this.city=city;
+        this.district=district;
+    }
+    
     
     public String getName() {
         return province + city + district;

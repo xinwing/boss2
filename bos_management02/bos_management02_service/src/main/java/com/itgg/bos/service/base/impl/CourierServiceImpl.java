@@ -1,5 +1,6 @@
 package com.itgg.bos.service.base.impl;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,7 @@ public class CourierServiceImpl implements CourierService {
     }
 
    
-
+    @RequiresPermissions("courier_delete")
     @Override
     public void batchDel(long id) {
           

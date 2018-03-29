@@ -53,6 +53,13 @@ public class SubareaServiceImpl implements SubareaService{
           
         return subareaRepository.findByFixedAreaId(fixedAreaId);
     }
+
+    @Override
+    public void save(List<SubArea> list) {
+          
+        subareaRepository.save(list);  
+        
+    }
     
 }
   

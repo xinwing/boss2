@@ -34,7 +34,11 @@ public interface CustomerService {
     @PUT
     @Path("/associateCustomer2FixedArea")
     void associateCustomer2FixedArea(@QueryParam("fixedAreaId") String fixedAreaId,@QueryParam("customerIds") Long[] customerIds);
-        
+    
+    @PUT
+    @Path("/unassociateCustomer2FixedArea")
+    void unassociateCustomer2FixedArea(@QueryParam("fixedAreaId") String fixedAreaId);
+    
     @POST
     @Path("/regist")
     void regist(Customer customer);
@@ -47,6 +51,9 @@ public interface CustomerService {
     @GET
     @Path("/login")
     Customer login(@QueryParam("telephone") String telephone);
+    @GET
+    @Path("/findFixedIdAreaByAddress")
+    String findFixedIdAreaByAddress(@QueryParam("address") String address);
         
    
 }

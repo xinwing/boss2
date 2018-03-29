@@ -15,5 +15,10 @@
   		<artifactId>common_bos_utils</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>com.itgg</groupId>
+  		<artifactId>bos_management02_domain</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>

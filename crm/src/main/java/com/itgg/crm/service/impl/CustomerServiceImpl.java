@@ -76,6 +76,21 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findByTelephone(telephone);
     }
 
+    @Override
+    public void unassociateCustomer2FixedArea(String fixedAreaId) {
+          
+        if(StringUtils.isNotEmpty(fixedAreaId)){
+            customerRepository.unbindByFixedAreaId(fixedAreaId);
+        }
+        
+    }
+
+    @Override
+    public String findFixedIdAreaByAddress(String address) {
+         
+        return customerRepository.findFixedIdAreaByAddress(address);
+    }
+
    
 
 }

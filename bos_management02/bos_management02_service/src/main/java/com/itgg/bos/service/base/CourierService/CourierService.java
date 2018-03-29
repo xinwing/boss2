@@ -15,7 +15,7 @@ public interface CourierService {
 
     void save(Courier courier);
 
-
+    
     void batchDel(long id);
 
     Page<Courier> findAll(Specification<Courier> specification, Pageable pageable);

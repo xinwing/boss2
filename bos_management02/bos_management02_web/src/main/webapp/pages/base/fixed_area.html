@@ -488,9 +488,9 @@
 								</select>
 							</td>
 							<td>
-								<input onclick="moveCustomer2Right()" type="button" value="》》" id="toRight">
+								<input onclick="moveCustomer2Right()" type="button" value="添加 》》" id="toRight">
 								<br/>
-								<input onclick="moveCustomer2Left()" type="button" value="《《" id="toLeft">
+								<input onclick="moveCustomer2Left()" type="button" value="《《 删除" id="toLeft">
 							</td>
 							<td>
 								<select id="associationSelect" name="customerIds" multiple="multiple" size="10"></select>
@@ -498,7 +498,7 @@
 						</tr>
 						<tr>
 							<td colspan="3">
-								<a onclick="associateCustomer2FixedArea()" id="associationBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">关联客户</a>
+								<a onclick="associateCustomer2FixedArea()" id="associationBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">确定</a>
 							</td>
 						</tr>
 					</table>
@@ -512,12 +512,13 @@
 				$("#customerFixedAreaId").val(rows[0].id)
 				$("#associationSelect option").attr("selected","selected")
 				var optionNum=$("#associationSelect option").length
-				if(optionNum>0){
+				$("#customerForm").submit();
+				/* if(optionNum>0){
 					
 					$("#customerForm").submit();
 				}else{
 					$.messager.alert("警告","请选择客户信息！！！","warning")
-				}
+				} */
 			}
 		</script>
 		

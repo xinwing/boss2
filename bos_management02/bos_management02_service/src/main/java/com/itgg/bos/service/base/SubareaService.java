@@ -22,5 +22,7 @@ public interface SubareaService {
 
     List<SubArea> findByFixedAreaId(Long fixedAreaId);
 
+    void save(List<SubArea> list);
+
 }
   

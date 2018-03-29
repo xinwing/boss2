@@ -55,13 +55,13 @@
 											var reg=new RegExp("^1[3456789]\\d{9}$")
 											if(reg.test(telephone)){
 												//alert(telephone)
-												$.post("customerAction_checkTelephone.action","telephone="+telephone,function(result){
+												/* $.post("customerAction_checkTelephone.action","telephone="+telephone,function(result){
 													if(result==0){
 														alert("该手机号已被注册！！！")
 														
 														$("#telephone").val("")
 													}
-												})
+												}) */
 											}
 										}
 									</script>

@@ -53,7 +53,9 @@
 						</td>
 						<td>运单号</td>
 						<td>
-							<input type="text" name="wayBillNum" id="wayBillNum"/>
+							<input  class="easyui-combobox" name="wayBill.wayBillNum" id="wayBillNum"
+								 data-options="valueField:'wayBillNum',textField:'wayBillNum',mode:'remote',limitToList:true,
+								 url:'../../wayBillAction_findAll.action'" />
 						</td>
 					</tr>
 					<tr>
