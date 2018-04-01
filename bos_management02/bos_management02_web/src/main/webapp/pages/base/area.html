@@ -30,7 +30,10 @@
 			function upLoad(){
 				alert("上传...");
 			}
-			
+			function doExport2Excel(){
+				
+				window.location.href="../../areaAction_exportExcel.action"
+			}
 			//工具栏
 			var toolbar = [ {
 				id : 'button-edit',	
@@ -51,6 +54,12 @@
 				id : 'button-import',
 				text : '导入',
 				iconCls : 'icon-redo'
+			
+			}, {
+				id : 'button-export',
+				text : '导出',
+				iconCls : 'icon-redo',
+				handler : doExport2Excel
 			
 			}];
 			// 定义列

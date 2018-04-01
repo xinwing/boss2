@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itgg.bos.dao.base.WaybillRepository;
+import com.itgg.bos.dao.take_delivery.WaybillRepository;
 import com.itgg.bos.domain.take_delivery.WayBill;
 
 /**  

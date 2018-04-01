@@ -1,5 +1,8 @@
 package com.itgg.bos.service.realms;
 
+import java.util.List;
+
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -9,10 +12,15 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.itgg.bos.dao.system.PermissionRepository;
+import com.itgg.bos.dao.system.RoleRepository;
 import com.itgg.bos.dao.system.UserRepository;
+import com.itgg.bos.domain.system.Permission;
+import com.itgg.bos.domain.system.Role;
 import com.itgg.bos.domain.system.User;
 
 /**  
@@ -24,18 +32,44 @@ import com.itgg.bos.domain.system.User;
 public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private PermissionRepository permissionRepository;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        //动态授权
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
         
-        info.addStringPermission("courierAction_pageQuery");
-        info.addStringPermission("courier_delete");
-        System.out.println("shouquan");
+        List<Permission> permissions=null;
+        List<Role> roles=null;
+        if("admin".equals(user.getUsername())){
+            //给管理员授予所有权限
+            permissions = permissionRepository.findAll();
+            
+            roles = roleRepository.findAll();
+            
+        }else{
+            //根据用户id授权
+            permissions=permissionRepository.findByUser(user.getId());
+            
+            roles=roleRepository.findByUser(user.getId());
+        }
+        //授权
+        for (Permission permission : permissions) {
+            info.addStringPermission(permission.getKeyword());
+        }
+        for (Role role : roles) {
+            info.addRole(role.getKeyword());
+        }
+        
        /* info.addRole("admin");*/
         
-        return null;
+        return info;
     }
 
     @Override

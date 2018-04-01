@@ -1,4 +1,4 @@
-package com.itgg.bos.web.action.base;
+package com.itgg.bos.web.action.take_delivery;
 
 import java.io.IOException;
 import java.util.List;

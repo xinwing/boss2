@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itgg.bos.dao.base.AreaRepository;
 import com.itgg.bos.dao.base.FixedAreaRepository;
-import com.itgg.bos.dao.base.OrderDao;
-import com.itgg.bos.dao.base.WorkBillRepository;
+import com.itgg.bos.dao.take_delivery.OrderDao;
+import com.itgg.bos.dao.take_delivery.WorkBillRepository;
 import com.itgg.bos.domain.base.Area;
 import com.itgg.bos.domain.base.Courier;
 import com.itgg.bos.domain.base.FixedArea;

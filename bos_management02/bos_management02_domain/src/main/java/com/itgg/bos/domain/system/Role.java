@@ -1,6 +1,7 @@
 package com.itgg.bos.domain.system;
 
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "T_ROLE")
-public class Role {
+public class Role implements Serializable{
     @Id
     @GeneratedValue
     @Column(name = "C_ID")

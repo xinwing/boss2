@@ -1,6 +1,7 @@
 package com.itgg.bos.domain.system;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "T_USER")
-public class User {
+public class User implements Serializable{
 
     @Id
     @GeneratedValue

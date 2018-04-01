@@ -2,6 +2,8 @@ package com.itgg.bos.web.action.system;
 
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
 import com.itgg.bos.domain.system.Menu;
+import com.itgg.bos.domain.system.User;
 import com.itgg.bos.service.system.MenuService;
 import com.itgg.bos.web.action.commonAction;
 
@@ -68,6 +71,25 @@ public class MenuAction extends commonAction<Menu> {
         jsonConfig.setExcludes(new String[]{"roles","parentMenu","childrenMenus"});
         page2json(page, jsonConfig);
         
+        return NONE;
+    }
+    
+    @Action("menuAction_findByUser")
+    public String findByUser(){
+        
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        List<Menu> list=null;
+        if("admin".equals(user.getUsername())){
+            Page<Menu> page2 = menuService.findAll(null);
+            list = page2.getContent();
+        }else{
+            list=menuService.findByUser(user.getId());
+        }
+        
+        JsonConfig jsonConfig=new JsonConfig();
+        jsonConfig.setExcludes(new String[]{"children","roles","parentMenu","childrenMenus"});
+        list2json(list, jsonConfig);
         return NONE;
     }
 
